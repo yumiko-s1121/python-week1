@@ -1,11 +1,11 @@
-names = {"Yumiko", "John", "Amy", "Ken"}
+names = ["Yumiko", "John", "Amy", "Ken"]
 
 print("Member list:")
 
 for name in names:
     print(name)
 
-score = {80, 95, 70, 60}
+score = [80, 95, 70, 60]
 
 total = 0
 
