@@ -1,3 +1,4 @@
+PASS_LINE = 75 # 合格点
 import csv
 
 with open("python-week1/data.csv") as f:
@@ -10,7 +11,7 @@ with open("python-week1/data.csv") as f:
         name = row[0]
         score = int(row[1])
 
-        if score >= 80 :
+        if score >= PASS_LINE :
             result = "Pass"
         else :
             result = "Fail"
