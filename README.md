@@ -1,23 +1,27 @@
-# python-week1
+# Score Checking Web App (Week 1)
 
-My Python learning project.
+<!--
+This repository contains a simple web application
+that checks whether a user passes or fails based on a score.
+-->
 
-This program prints messages.
+## What is this?
+This is a simple score checking web app.
+Users enter a name, a score, and a pass line.
+The app tells whether the user passed or failed.
 
-## Day3 - CSV Result Generator
+---
 
-This program reads a CSV file with test scores.
-It checks pass or fail.
-It creates a result CSV file.
+## Technologies
+- Python (Flask)
+- JavaScript
+- HTML
+- GitHub
 
-### Input
-data.csv
-(name, score)
+---
 
-### Output
-result.csv
-(name, score, result)
+## How to run
 
-### Example
-Yumiko,78 → Fail
-John,92 → Pass
+### 1. Start the Python API
+```bash
+python3 day7_api.py
