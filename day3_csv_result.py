@@ -9,7 +9,11 @@ with open("python-week1/data.csv") as f:
 
     for row in reader : # 2行目以降を読み込んで処理
         name = row[0]
-        score = int(row[1])
+        try :
+            score = int(row[1])
+        except :
+            print("Invalid score for", name)
+            continue
 
         if score >= PASS_LINE :
             result = "Pass"
