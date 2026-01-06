@@ -25,9 +25,8 @@ The app tells whether the user passed or failed.
 ### 1. Start the Python API
 ```bash
 python3 day7_api.py
-　### 1. Run the API 
-   python3 day7_api.py
 ```
 
 ### 2. Open day7.html with Live Server
+
 ### 3. Enter name, score, and pass line
