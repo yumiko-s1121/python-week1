@@ -22,6 +22,8 @@ It is a small but realistic example of a business-style web application.
 
 - Add a new score record
 - List all records
+- Search records by name
+- Sort records by score (ascending / descending)
 - Update a record (edit score)
 - Delete a record
 - Data is stored in a JSON file on the server
@@ -91,10 +93,25 @@ GET /add?name=Yumiko&score=80
 ```
 
 ### List records
-
 ```
 GET /list
 ```
+
+### Search by name
+```
+GET /list?name=Yu
+```
+
+### Sort by score (ascending)
+```
+GET /list?sort=score
+```
+
+### Sort by score (descending)
+```
+GET /list?sort=score_desc
+```
+
 
 ### Update a record
 
@@ -137,3 +154,5 @@ Each record has this format:
 * How to implement full CRUD (Create, Read, Update, Delete)
 * How to connect JavaScript to a Python backend
 * How to build a simple but realistic web application
+* How to implement searching and sorting in an API
+
