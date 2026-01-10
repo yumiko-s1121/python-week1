@@ -67,7 +67,7 @@ js-week1/
 
 ## How to run
 
-### 1. Start the Python API
+### 1. Start the Python API (MySQL backend)
 
 ```bash
 python3 week2_day4_api.py
