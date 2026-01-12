@@ -31,6 +31,13 @@ def success(data) :
     data["status"] = "ok" # dict型の data に「"status":"ok"」の要素を追加
     return jsonify(data)
 
+# ログイン中かを確認
+def require_login() :
+    user_id = request.args.get("user_id")
+    if not user_id or user_id == 'null':
+        return None, error("Login required")
+    return user_id, None
+
 @app.route("/login")
 # ログイン機能を提供する関数
 def login() :
@@ -61,6 +68,11 @@ def login() :
 @app.route("/add")
 # パラメータを受け取りデータベースに追加し、ID を返却する関数
 def add() :
+    # ログイン中かチェック
+    user_id, err = require_login()
+    if err :
+        return err
+    
     # パラメータを取得
     name = request.args.get("name")
     score_str = request.args.get("score")
@@ -138,6 +150,11 @@ def list_data() :
 @app.route("/delete")
 # 指定された ID のレコードを DB から削除
 def delete() :
+    # ログイン中かチェック
+    user_id, err = require_login()
+    if err :
+        return err
+
     # パラメータを取得
     id_str = request.args.get("id")
 
@@ -172,6 +189,11 @@ def delete() :
 
 @app.route("/update")
 def update() :
+    # ログイン中かチェック
+    user_id, err = require_login()
+    if err :
+        return err
+
     # パラメータを取得
     id_str = request.args.get("id")
     name = request.args.get("name")
