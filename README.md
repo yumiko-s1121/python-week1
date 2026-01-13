@@ -1,9 +1,8 @@
 # Score Manager Web App (Week 2)
 
-This is a secure CRUD web application with user authentication.
+This is a secure, full-stack CRUD web application for managing score records.
 The backend uses MySQL and the frontend communicates with the API via HTTP.
-
-The app includes validation and error handling to prevent invalid data from being saved.
+User authentication is implemented with hashed passwords.
 
 ---
 
@@ -11,6 +10,7 @@ The app includes validation and error handling to prevent invalid data from bein
 
 This web app lets users:
 
+- Log in with a username and password
 - Save name and score data
 - View all saved records
 - Search records by name
@@ -18,12 +18,14 @@ This web app lets users:
 - Edit a score
 - Delete a record
 
-It is a small but practical example of a business-style web application.
+It is a small but realistic example of a business-style web application with authentication.
 
 ---
 
 ## Features
 
+- User login (authentication)
+- Only logged-in users can add, edit, or delete records
 - Add a new score record (via web UI)
 - List all records
 - Search records by name
@@ -31,9 +33,8 @@ It is a small but practical example of a business-style web application.
 - Update a record (edit score)
 - Delete a record
 - Input validation and error messages
+- Secure password storage using hashing and salt
 - Data is stored in a MySQL database
-- User login (authentication)
-- Only logged-in users can add, edit, or delete records
 
 ---
 
@@ -43,6 +44,7 @@ It is a small but practical example of a business-style web application.
 - JavaScript (Vanilla JS)
 - HTML
 - MySQL
+- hashlib / secrets (for password hashing)
 - Git / GitHub
 
 ---
@@ -57,8 +59,8 @@ It is a small but practical example of a business-style web application.
  ├── week2_day3_api.py
  ├── week2_day4_api.py
  ├── week2_day5_api.py   # MySQL + validation
- ├── week2_day6_api.py   # MySQL + validation + login
- └── ...
+ ├── week2_day6_api.py   # Login + access control
+ └── week2_day7_api.py   # Hashed passwords (final)
 
 js-week1/
 ├── week2_day1.html
@@ -80,10 +82,22 @@ js-week1/
 
 ## How to run
 
-### 1. Start the Python API (MySQL backend)
+### 1. Initialize the database
 
 ```bash
-python3 week2_day5_api.py
+python3 init_db.py
+```
+This will:
+	-	Create the score_app database
+	-	Create the scores and users tables
+	-	Insert a demo user
+
+⸻
+
+### 2. Start the Python API (MySQL backend)
+
+```bash
+python3 week2_day7_api.py
 ```
 
 The API will run at:
@@ -91,28 +105,36 @@ The API will run at:
 ```
 http://127.0.0.1:5000
 ```
-
 ---
 
 ### 2. Open the Web UI
 
-Open `week2_day5.html` with Live Server (VS Code).
+Open `week2_day6.html` with Live Server (VS Code).
 
 Click **Load Records** to see saved data.
 
 ---
 
+## Demo Account
+
+You can log in with:
+
+username: demo
+password: demo123
+
+⸻
+
 ## API Endpoints
 ### Login
 
 ```
-GET /login?username=yumiko&password=pass123
+GET /login?username=demo&password=demo123
 ```
 
 ### Add a record
 
 ```
-GET /add?name=Yumiko&score=80
+GET /add?name=Yumiko&score=80&user_id=1
 ```
 
 ### List records
@@ -139,13 +161,13 @@ GET /list?sort=score_desc
 ### Update a record
 
 ```
-GET /update?id=1&score=95
+GET /update?id=1&score=95&user_id=1
 ```
 
 ### Delete a record
 
 ```
-GET /delete?id=1
+GET /delete?id=1&user_id=1
 ```
 
 ---
@@ -164,8 +186,12 @@ CREATE TABLE scores (
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(50) UNIQUE,
-  password VARCHAR(100)
+  salt VARCHAR(32),
+  password_hash VARCHAR(64)
 );
+
+Passwords are never stored in plain text.
+They are hashed using SHA-256 with a unique salt per user.
 
 ```
 ```json
@@ -175,15 +201,6 @@ Example record(scores):
   "name": "Yumiko",
   "score": 80
 }
-```
-```json
-Example record(users):
-{
-  "id": 1,
-  "username": "yumiko",
-  "password": "pass123"
-}
-
 ```
 
 ---
@@ -196,8 +213,6 @@ Example record(users):
 * How to add validation and database constraints
 * How to display API errors in the web UI
 * How to connect JavaScript to a Python backend
-* How to implement user authentication (login)
-* How to protect APIs with login checks
-
-
----
+* How to implement user authentication
+* How to store passwords securely using hashing and salt
+* How to build a secure, database-backed web application
